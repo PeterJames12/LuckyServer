@@ -1,0 +1,273 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<groupId>org.luckyether</groupId>
+	<artifactId>api</artifactId>
+	<version>0.0.1-SNAPSHOT</version>
+	<packaging>war</packaging>
+
+	<name>LuckyServer</name>
+	<description>Lucky project</description>
+
+	<parent>
+		<groupId>org.springframework.boot</groupId>
+		<artifactId>spring-boot-starter-parent</artifactId>
+		<version>1.5.6.RELEASE</version>
+		<relativePath />
+	</parent>
+
+	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+		<java.version>1.8</java.version>
+		<flyway.version>${xchange-poloniex.version}</flyway.version>
+		<querydsl.version>3.7.4</querydsl.version>
+		<cypher-compiler-version>2.1.8</cypher-compiler-version>
+		<apt-maven-plugin-version>1.1.3</apt-maven-plugin-version>
+		<tomcat7-maven-plugin-version>2.2</tomcat7-maven-plugin-version>
+		<checkstyle.version>2.17</checkstyle.version>
+		<spring-context-support.version>4.3.10.RELEASE</spring-context-support.version>
+		<mail.version>1.4.7</mail.version>
+		<commons-lang3.version>3.6</commons-lang3.version>
+		<skipTests>true</skipTests>
+		<xchange-poloniex.version>4.2.0</xchange-poloniex.version>
+		<core.version>2.3.0</core.version>
+		<xchange-core.version>4.2.1</xchange-core.version>
+	</properties>
+
+	<dependencyManagement>
+		<dependencies>
+			<dependency>
+				<groupId>org.flywaydb</groupId>
+				<artifactId>flyway-core</artifactId>
+				<version>${flyway.version}</version>
+			</dependency>
+		</dependencies>
+	</dependencyManagement>
+
+	<repositories>
+		<repository>
+			<id>api-v1-client-java-mvn-repo</id>
+			<url>https://raw.githubusercontent.com/blockchain/api-v1-client-java/mvn-repo/</url>
+			<snapshots>
+				<enabled>true</enabled>
+				<updatePolicy>always</updatePolicy>
+			</snapshots>
+		</repository>
+		<repository>
+			<id>sonatype-oss-snapshot</id>
+			<snapshots/>
+			<url>https://oss.sonatype.org/content/repositories/snapshots</url>
+		</repository>
+	</repositories>
+
+	<!--springframework.boot-->
+	<dependencies>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-actuator</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-data-jpa</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.flywaydb</groupId>
+			<artifactId>flyway-core</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-jdbc</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-mobile</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-security</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-webmvc</artifactId>
+		</dependency>
+
+		<!-- OAuth 2.0 -->
+		<dependency>
+			<groupId>org.springframework.security.oauth</groupId>
+			<artifactId>spring-security-oauth2</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-thymeleaf</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-web</artifactId>
+		</dependency>
+
+		<!--DataBase-->
+		<dependency>
+			<groupId>mysql</groupId>
+			<artifactId>mysql-connector-java</artifactId>
+			<scope>runtime</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.projectlombok</groupId>
+			<artifactId>lombok</artifactId>
+			<optional>true</optional>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-tomcat</artifactId>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-test</artifactId>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.hibernate</groupId>
+			<artifactId>hibernate-validator</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.hateoas</groupId>
+			<artifactId>spring-hateoas</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>com.mysema.querydsl</groupId>
+			<artifactId>querydsl-apt</artifactId>
+			<version>${querydsl.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>com.mysema.querydsl</groupId>
+			<artifactId>querydsl-jpa</artifactId>
+			<version>${querydsl.version}</version>
+		</dependency>
+
+		<!-- Commons codec -->
+		<dependency>
+			<groupId>commons-codec</groupId>
+			<artifactId>commons-codec</artifactId>
+		</dependency>
+
+		<!--Neo4J-->
+		<dependency>
+			<groupId>org.neo4j</groupId>
+			<artifactId>neo4j-cypher-compiler-2.1</artifactId>
+			<version>${cypher-compiler-version}</version>
+		</dependency>
+
+		<!--Spring-->
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-context-support</artifactId>
+			<version>${spring-context-support.version}</version>
+		</dependency>
+
+		<!--Email-->
+		<dependency>
+			<groupId>javax.mail</groupId>
+			<artifactId>mail</artifactId>
+			<version>${mail.version}</version>
+		</dependency>
+
+		<!--Apache-->
+		<dependency>
+			<groupId>org.apache.commons</groupId>
+			<artifactId>commons-lang3</artifactId>
+			<version>${commons-lang3.version}</version>
+		</dependency>
+
+		<!--web3j-->
+		<dependency>
+			<groupId>org.web3j</groupId>
+			<artifactId>core</artifactId>
+			<version>${core.version}</version>
+		</dependency>
+
+		<!--Xchange-->
+		<dependency>
+			<groupId>org.knowm.xchange</groupId>
+			<artifactId>xchange-core</artifactId>
+			<version>${xchange-core.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.knowm.xchange</groupId>
+			<artifactId>xchange-examples</artifactId>
+			<version>${xchange-core.version}</version>
+		</dependency>
+	</dependencies>
+
+	<build>
+		<finalName>${project.artifactId}</finalName>
+		<plugins>
+			<plugin>
+				<groupId>com.mysema.maven</groupId>
+				<artifactId>apt-maven-plugin</artifactId>
+				<version>${apt-maven-plugin-version}</version>
+				<executions>
+					<execution>
+						<goals>
+							<goal>process</goal>
+						</goals>
+						<phase>generate-sources</phase>
+						<configuration>
+							<outputDirectory>target/generated-sources/java</outputDirectory>
+							<processor>com.mysema.query.apt.jpa.JPAAnnotationProcessor</processor>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+			<plugin>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-maven-plugin</artifactId>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-surefire-plugin</artifactId>
+				<version>2.18.1</version>
+				<configuration>
+					<skipTests>${skipTests}</skipTests>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.flywaydb</groupId>
+				<artifactId>flyway-maven-plugin</artifactId>
+				<version>${flyway.version}</version>
+				<configuration>
+					<user>luckyuser</user>
+					<password>!c9oaDlgjqEDpgilx</password>
+					<driver>com.mysql.jdbc.Driver</driver>
+					<url>jdbc:mysql://54.37.9.114:3306/luckydb</url>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-checkstyle-plugin</artifactId>
+				<version>${checkstyle.version}</version>
+				<executions>
+					<execution>
+						<id>validate</id>
+						<goals>
+							<goal>check</goal>
+						</goals>
+						<phase>validate</phase>
+						<configuration>
+							<configLocation>general_checks.xml</configLocation>
+							<suppressionsLocation>checkstyle-suppressions.xml</suppressionsLocation>
+							<encoding>UTF-8</encoding>
+							<consoleOutput>true</consoleOutput>
+							<failsOnError>true</failsOnError>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+		</plugins>
+	</build>
+
+</project>

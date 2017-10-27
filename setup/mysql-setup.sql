@@ -1,0 +1,4 @@
+CREATE DATABASE luckydb CHARACTER SET utf8 COLLATE utf8_general_ci;
+CREATE USER 'luckyuser'@'%' IDENTIFIED BY '!c9oaDlgjqEDpgilx';
+GRANT ALL PRIVILEGES ON luckydb.* TO 'luckyuser'@'%' WITH GRANT OPTION;
+FLUSH PRIVILEGES;

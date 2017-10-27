@@ -1,0 +1,8 @@
+
+//mysql workbench
+//Run mysql-setup.sql
+
+//maven goal
+1)      clean install
+2)      flyway:migrate
+3)      spring-boot:run
