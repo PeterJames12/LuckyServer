@@ -12,7 +12,7 @@ public interface UserService {
      * @param user is going to be create in db.
      * @throws RequestException if something went wrong.
      */
-    String addUser(UserDTO user) throws RequestException;
+    void create(UserDTO user) throws RequestException;
 
     /**
      * @return {@link UserDTO} by email.
@@ -25,11 +25,4 @@ public interface UserService {
      * @param email email for recovering password, must not be {@literal null}.
      */
     void changePassword(String email);
-
-    /**
-     * Change wallet address id user need that.
-     *
-     * @return if wallet address was changed.
-     */
-    boolean changeWalletAddress(UserDTO userDTO);
 }

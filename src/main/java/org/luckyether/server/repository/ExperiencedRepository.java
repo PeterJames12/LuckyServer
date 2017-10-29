@@ -16,4 +16,10 @@ public interface ExperiencedRepository extends JpaRepository<Experienced, Long> 
      */
     @Query("select s from Experienced s where s.id between ?1 and ?2")
     List<Experienced> getBetweenId(final Long from, final Long to);
+
+    /**
+     * @return count id value.
+     */
+    @Query("SELECT count(id) FROM Experienced")
+    Long countById();
 }

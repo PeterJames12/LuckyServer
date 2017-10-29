@@ -3,7 +3,9 @@ package org.luckyether.server.controller;
 import lombok.RequiredArgsConstructor;
 import org.luckyether.server.dto.UserDTO;
 import org.luckyether.server.exception.BaseException;
+import org.luckyether.server.model.UserStatistic;
 import org.luckyether.server.service.UserService;
+import org.luckyether.server.service.UserStatisticService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -18,12 +20,15 @@ public class UserController {
     @Autowired
     private UserService userService;
 
+    @Autowired
+    private UserStatisticService userStatisticService;
+
     /**
      * Sign up for user.
      */
     @PostMapping(value = "/signup")
-    public String addUser(@RequestBody UserDTO user) throws BaseException {
-        return userService.addUser(user);
+    public void addUser(@RequestBody UserDTO user) throws BaseException {
+        userService.create(user);
     }
 
     /**
@@ -42,11 +47,8 @@ public class UserController {
         userService.changePassword(email);
     }
 
-    /**
-     * Change user's wallet address.
-     */
-    @RequestMapping(value = "/changeWalletAddress", method = RequestMethod.POST)
-    public boolean changeWalletAddress(@RequestBody UserDTO userDTO) throws BaseException {
-        return userService.changeWalletAddress(userDTO);
+    @RequestMapping(value = "/statistic", method = RequestMethod.GET)
+    public UserStatistic getStatistic(@RequestParam String address) {
+        return userStatisticService.getStatistic(address);
     }
 }

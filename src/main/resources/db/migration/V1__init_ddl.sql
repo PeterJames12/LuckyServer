@@ -92,7 +92,6 @@ CREATE TABLE `user` (
   `id` BIGINT(20) NOT NULL AUTO_INCREMENT,
   `version` BIGINT(20) NOT NULL DEFAULT 0,
   `email` VARCHAR(50) NOT NULL UNIQUE,
-  `wallet` VARCHAR(256) NOT NULL,
   `password` VARCHAR(256) NOT NULL,
   `enabled` tinyint(4) DEFAULT '0',
   PRIMARY KEY (`id`))
@@ -136,9 +135,9 @@ create table email_code
 CREATE TABLE wallet
 (
   id BIGINT(20) PRIMARY KEY NOT NULL AUTO_INCREMENT,
-  wallet_junior VARCHAR(255),
-  wallet_middle VARCHAR(255),
-  wallet_senior VARCHAR(255),
+  wallet_newbie VARCHAR(255),
+  wallet_experienced VARCHAR(255),
+  wallet_professional VARCHAR(255),
   version BIGINT(20)
 );
 CREATE UNIQUE INDEX wallet_id_uindex ON wallet (id);
@@ -167,7 +166,7 @@ create table transaction_history
   id bigint auto_increment
     primary key,
   version bigint null,
-  data tinyblob null,
+  data VARCHAR(255) null,
   ether varchar(255) null,
   transaction_hash VARCHAR(255) NULL,
   sender_address varchar(255) null
@@ -210,6 +209,33 @@ create table professional
     primary key,
   version bigint null,
   address varchar(255) null
+)
+;
+
+--
+-- Table structure for table `out_transaction`
+--
+
+CREATE TABLE out_transaction (
+  id BIGINT AUTO_INCREMENT
+  PRIMARY KEY,
+  vesion BIGINT NULL,
+  ether VARCHAR(255) NULL,
+  data VARCHAR(255) NULL,
+  winner_address VARCHAR(255) NULL
+)
+;
+
+--
+-- Table structure for table `jackpot`
+--
+
+CREATE TABLE jackpot (
+  id BIGINT AUTO_INCREMENT
+  PRIMARY KEY,
+  vesion BIGINT NULL,
+  address VARCHAR(255) NULL,
+  count BIGINT NULL
 )
 ;
 

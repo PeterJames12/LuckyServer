@@ -11,7 +11,6 @@ import org.luckyether.server.security.PasswordEncoder;
 import org.luckyether.server.service.EmailBuilder;
 import org.luckyether.server.service.UserService;
 import org.luckyether.server.service.impl.email.RecoverBuilderImpl;
-import org.luckyether.server.util.CodeStatus;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.PropertySource;
@@ -45,18 +44,12 @@ public class UserServiceImpl implements UserService {
      * {@inheritDoc}.
      */
     @Override
-    public String addUser(UserDTO userDTO) throws RequestException {
+    public void create(UserDTO userDTO) throws RequestException {
         User user = fromDTO(userDTO);
         if (userRepository.findByEmail(userDTO.getEmail()) != null) {
             throw new RequestException(ErrorCode.USER_EXISTS, "EtherUser already exists");
         }
-        User savedUser = userRepository.save(user);
-        User userById = userRepository.findById(user.getId());
-        if (savedUser.getId().equals(userById.getId())) {
-            return CodeStatus.SUCCESS.toString();
-        } else {
-            return CodeStatus.FAIL.toString();
-        }
+        userRepository.save(user);
     }
 
     /**
@@ -71,7 +64,6 @@ public class UserServiceImpl implements UserService {
         }
         user.setPassword(passwordEncoder.encode(userDTO.getPassword()));
         user.setEmail(userDTO.getEmail());
-        user.setWallet(userDTO.getWallet());
 
         Role role = new Role();
         role.setName("CLIENT");
@@ -92,7 +84,7 @@ public class UserServiceImpl implements UserService {
      * @return {@link UserDTO} from {@link User}.
      */
     private UserDTO toFrom(User user) {
-        return new UserDTO(user.getEmail(), user.isEnabled(), user.getWallet());
+        return new UserDTO(user.getEmail(), user.isEnabled());
     }
 
     /**
@@ -110,17 +102,5 @@ public class UserServiceImpl implements UserService {
         val message = this.emailStrategy.buildMessage(user);
 //        emailService.sendMessage(message);
         userRepository.saveAndFlush(user);
-    }
-
-    /**
-     * {@inheritDoc}.
-     */
-    @Override
-    public boolean changeWalletAddress(UserDTO userDTO) {
-        UserDTO userByUserEmail = this.getUserByUserEmail(userDTO.getEmail());
-        User user = fromDTO(userByUserEmail);
-        user.setWallet(userDTO.getWallet());
-        userRepository.saveAndFlush(user);
-        return user.getWallet().equals(userDTO.getWallet());
     }
 }

@@ -7,7 +7,6 @@ import org.luckyether.server.repository.VerificationRepository;
 import org.luckyether.server.service.EmailBuilder;
 import org.luckyether.server.service.VerificationService;
 import org.luckyether.server.service.impl.email.VerificationBuilderImpl;
-import org.luckyether.server.util.CodeStatus;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.PropertySource;
@@ -52,10 +51,6 @@ public class VerificationServiceImpl implements VerificationService {
     @Override
     public String verificateUserAfter(Verification verification) {
         final Verification verificate = verificationRepository.findByEmail(verification.getEmail());
-        if (verification.getCode() == verificate.getCode()) {
-            verificationRepository.delete(verificate);
-            return CodeStatus.SUCCESS.name();
-        }
-        return CodeStatus.FAIL.name();
+        return null;
     }
 }

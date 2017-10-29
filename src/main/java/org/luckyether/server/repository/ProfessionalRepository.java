@@ -16,4 +16,10 @@ public interface ProfessionalRepository extends JpaRepository<Professional, Long
      */
     @Query("select s from Professional s where s.id between ?1 and ?2")
     List<Professional> getBetweenId(final Long from, final Long to);
+
+    /**
+     * @return count id value.
+     */
+    @Query("SELECT count(id) FROM Professional")
+    Long countById();
 }

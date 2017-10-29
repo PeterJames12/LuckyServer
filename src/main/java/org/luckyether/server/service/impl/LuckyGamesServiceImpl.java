@@ -10,6 +10,7 @@ import org.luckyether.server.service.TransactionService;
 import org.luckyether.server.util.Ether;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.web3j.crypto.CipherException;
 import org.web3j.protocol.exceptions.TransactionTimeoutException;
 
 import java.io.IOException;
@@ -29,16 +30,6 @@ public class LuckyGamesServiceImpl implements LuckyGamesService {
     @Autowired
     private TransactionService transactionService;
 
-//    public static void main(String[] args) throws IOException {
-//
-//        final List<String> list = Arrays.asList("0xbADA6A89904D26E6a1C950d63e4ba27FE81B4829",
-//                "0xD00Ede3745d80F885d0B5bf71C80BD70034949a1",
-//                "0x90B4F43b617bE3A5D947389921EE25f1f7c39A07");
-//
-//        final String winner = new LuckyGamesServiceImpl().findWinner(list);
-//        System.out.println(winner);
-//    }
-
     /**
      * {@inheritDoc}.
      */
@@ -47,7 +38,7 @@ public class LuckyGamesServiceImpl implements LuckyGamesService {
         try {
             final String winner = findWinner(users);
             transactionService.sendTransaction(winner, Ether.NEWBIE);
-        } catch (IOException | InterruptedException | TransactionTimeoutException | ExecutionException e) {
+        } catch (IOException | InterruptedException | TransactionTimeoutException | ExecutionException | CipherException e) {
             e.printStackTrace();
         }
     }
@@ -60,7 +51,7 @@ public class LuckyGamesServiceImpl implements LuckyGamesService {
         try {
             final String winner = findWinner(users);
             transactionService.sendTransaction(winner, Ether.EXPERIENCED);
-        } catch (IOException | InterruptedException | TransactionTimeoutException | ExecutionException e) {
+        } catch (IOException | InterruptedException | TransactionTimeoutException | ExecutionException | CipherException e) {
             e.printStackTrace();
         }
     }
@@ -73,7 +64,7 @@ public class LuckyGamesServiceImpl implements LuckyGamesService {
         try {
             final String winner = findWinner(users);
             transactionService.sendTransaction(winner, Ether.PROFESSIONAL);
-        } catch (IOException | InterruptedException | TransactionTimeoutException | ExecutionException e) {
+        } catch (IOException | InterruptedException | TransactionTimeoutException | ExecutionException | CipherException e) {
             e.printStackTrace();
         }
     }
