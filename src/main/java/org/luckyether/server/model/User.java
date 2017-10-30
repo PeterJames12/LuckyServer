@@ -1,9 +1,6 @@
 package org.luckyether.server.model;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import java.io.Serializable;
 import java.util.List;
@@ -15,6 +12,7 @@ import javax.validation.constraints.NotNull;
  */
 @Getter
 @Setter
+@ToString
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
@@ -32,6 +30,9 @@ public class User extends AbstractEntity implements Serializable {
 
     @Column(name = "password", length = PASSWORD_LENGTH)
     private String password;
+
+    @Column(name = "wallet")
+    private String wallet;
 
     @Column(name = "enabled", columnDefinition = "tinyint default 0", length = 1)
     private boolean enabled;

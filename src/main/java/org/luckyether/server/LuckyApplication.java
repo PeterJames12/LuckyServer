@@ -66,9 +66,9 @@ public class LuckyApplication extends SpringBootServletInitializer {
      */
     @Autowired
     public void init(AuthenticationManagerBuilder auth, UserRepository repository) throws Exception {
-//        final Thread transactions = new Thread(() -> transactionService.listeningTransaction());
-//        transactions.setDaemon(true);
-//        transactions.start();
+        final Thread transactions = new Thread(() -> transactionService.listeningTransaction());
+        transactions.setDaemon(true);
+        transactions.start();
 
         auth.authenticationProvider(authProvider);
     }

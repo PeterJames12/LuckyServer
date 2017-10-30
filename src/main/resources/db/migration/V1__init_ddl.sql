@@ -93,6 +93,7 @@ CREATE TABLE `user` (
   `version` BIGINT(20) NOT NULL DEFAULT 0,
   `email` VARCHAR(50) NOT NULL UNIQUE,
   `password` VARCHAR(256) NOT NULL,
+  `wallet` VARCHAR(255) NULL,
   `enabled` tinyint(4) DEFAULT '0',
   PRIMARY KEY (`id`))
   ENGINE = InnoDB
@@ -156,10 +157,6 @@ create table transaction_helper
   unique (id)
 )
 ;
-
-INSERT INTO luckydb.transaction_helper (private_key)
-VALUES ('54018172962967141035397371032710015082328412733414730493055571811809990503056');
-
 
 --
 -- Table structure for table `transaction_history`
@@ -226,16 +223,10 @@ create table out_transaction
     primary key,
   version bigint null,
   data varchar(255) null,
-  ether double null,
+  ether VARCHAR(255) null,
   winner_address varchar(255) null
 )
 ;
-
-INSERT INTO out_transaction (ether, winner_address) VALUES (0.000001, '0x3666d98d8f3e69430ad31d26ed9ba448721b437d');
-INSERT INTO out_transaction (ether, winner_address) VALUES (0.000001, '0x3666d98d8f3e69430ad31d26ed9ba448721b437d');
-INSERT INTO out_transaction (ether, winner_address) VALUES (0.000001, '0x3666d98d8f3e69430ad31d26ed9ba448721b437d');
-INSERT INTO out_transaction (ether, winner_address) VALUES (0.000001, '0x3666d98d8f3e69430ad31d26ed9ba448721b437d');
-INSERT INTO out_transaction (ether, winner_address) VALUES (0.000001, '0x3666d98d8f3e69430ad31d26ed9ba448721b437d');
 
 --
 -- Table structure for table `jackpot`

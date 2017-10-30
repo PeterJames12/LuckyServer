@@ -34,30 +34,24 @@ public class TransactionServiceImpl implements TransactionService {
     private static final String ADDRESS_FOR_NEWBIE = "0xbADA6A89904D26E6a1C950d63e4ba27FE81B4829";
     private static final  String ADDRESS_FOR_EXPERIENCED = "0xD00Ede3745d80F885d0B5bf71C80BD70034949a1";
     private static final String ADDRESS_FOR_PROFESSIONAL = "0x90B4F43b617bE3A5D947389921EE25f1f7c39A07";
+    private static final String JACKPOT_ADDRESS = "0xA3eb3cE86BAcA5C621dAaBB648320236D5F3C684";
     private static String destination;
     private static final int LIMIT_USERS = 10;
 
     @Autowired
     private HistoryService historyService;
-
     @Autowired
     private HelperService helperService;
-
     @Autowired
     private LuckyGamesService luckyGamesService;
-
     @Autowired
     private OutTransactionService outTransactionService;
-
     @Autowired
     private NewbieService newbieService;
-
     @Autowired
     private ExperiencedService experiencedService;
-
     @Autowired
     private ProfessionalService professionalService;
-
     @Autowired
     private JackpotService jackpotService;
 
@@ -76,11 +70,16 @@ public class TransactionServiceImpl implements TransactionService {
 
         final OutTransaction outTransaction = new OutTransaction();
         outTransaction.setData(LocalDateTime.now().toString());
-        outTransaction.setEther(Double.valueOf(ether.toString()));
+        outTransaction.setEther(ether.toString());
         outTransaction.setWinnerAddress(address);
         outTransactionService.save(outTransaction);
+
+        Transfer.sendFundsAsync(webThreeJ, credentials, JACKPOT_ADDRESS, value, Convert.Unit.WEI).get();
     }
 
+    /**
+     * {@inheritDoc}.
+     */
     @Override
     public void listeningTransaction() {
         Web3j webJ = Web3j.build(new HttpService());

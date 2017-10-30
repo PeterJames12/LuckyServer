@@ -9,6 +9,8 @@ import org.luckyether.server.service.UserStatisticService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.math.BigDecimal;
+
 /**
  * @author Igor Hnes on 10/30/17.
  */
@@ -33,9 +35,10 @@ public class UserStatisticServiceImpl implements UserStatisticService {
         userStatistic.setWins((long) outTransactionStatisticList.size());
         double ether = 0.0;
         for (OutTransaction elem : outTransactionStatisticList) {
-            ether += elem.getEther();
+            final double eth = Double.parseDouble(elem.getEther());
+            ether += eth;
         }
-        userStatistic.setTotalWinsEther(String.valueOf(ether));
+        userStatistic.setTotalWinsEther(BigDecimal.valueOf(ether).toString());
         return userStatistic;
     }
 }

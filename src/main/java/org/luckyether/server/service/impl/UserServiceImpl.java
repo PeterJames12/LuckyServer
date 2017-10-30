@@ -44,12 +44,13 @@ public class UserServiceImpl implements UserService {
      * {@inheritDoc}.
      */
     @Override
-    public void create(UserDTO userDTO) throws RequestException {
+    public UserDTO create(UserDTO userDTO) throws RequestException {
         User user = fromDTO(userDTO);
         if (userRepository.findByEmail(userDTO.getEmail()) != null) {
             throw new RequestException(ErrorCode.USER_EXISTS, "EtherUser already exists");
         }
-        userRepository.save(user);
+        final User save = userRepository.save(user);
+        return toFrom(save);
     }
 
     /**
@@ -62,6 +63,7 @@ public class UserServiceImpl implements UserService {
         } else {
             user.setEnabled(true);
         }
+        user.setId(userDTO.getId());
         user.setPassword(passwordEncoder.encode(userDTO.getPassword()));
         user.setEmail(userDTO.getEmail());
 
@@ -84,7 +86,7 @@ public class UserServiceImpl implements UserService {
      * @return {@link UserDTO} from {@link User}.
      */
     private UserDTO toFrom(User user) {
-        return new UserDTO(user.getEmail(), user.isEnabled());
+        return new UserDTO(user.getEmail(), user.isEnabled(), user.getId(), user.getPassword());
     }
 
     /**
@@ -101,6 +103,15 @@ public class UserServiceImpl implements UserService {
         user.setPassword(encodedPassword);
         val message = this.emailStrategy.buildMessage(user);
 //        emailService.sendMessage(message);
+        userRepository.saveAndFlush(user);
+    }
+
+    /**
+     * {@inheritDoc}.
+     */
+    @Override
+    public void update(User user) {
+        System.out.println("User id: " + user.getId() + " " + user.toString());
         userRepository.saveAndFlush(user);
     }
 }

@@ -18,7 +18,7 @@ import javax.persistence.Table;
 public class OutTransaction extends AbstractEntity implements Serializable {
 
     @Column(name = "ether")
-    private Double ether;
+    private String ether;
     @Column(name = "data")
     private String data;
     @Column(name = "winner_address")
