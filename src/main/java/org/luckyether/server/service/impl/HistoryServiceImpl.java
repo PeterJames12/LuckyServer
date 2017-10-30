@@ -6,6 +6,8 @@ import org.luckyether.server.service.HistoryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 /**
  * @author Igor Hnes on 10/30/17.
  */
@@ -29,5 +31,13 @@ public class HistoryServiceImpl implements HistoryService {
     @Override
     public Long countBySenderAddress(String address) {
         return historyRepository.countBySenderAddress(address);
+    }
+
+    /**
+     * {@inheritDoc}.
+     */
+    @Override
+    public List<TransactionHistory> getHistoryByAddress(String address) {
+        return historyRepository.getAllBySenderAddress(address);
     }
 }
