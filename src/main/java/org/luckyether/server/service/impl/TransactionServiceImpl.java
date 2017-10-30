@@ -33,8 +33,8 @@ import java.util.concurrent.ExecutionException;
 public class TransactionServiceImpl implements TransactionService {
 
     private static final String ADDRESS_FOR_NEWBIE = "0xbADA6A89904D26E6a1C950d63e4ba27FE81B4829";
-    private static final  String ADDRESS_FOR_EXPERIENCED = "0xD00Ede3745d80F885d0B5bf71C80BD70034949a1".toLowerCase();
-    private static final String ADDRESS_FOR_PROFESSIONAL = "0x90B4F43b617bE3A5D947389921EE25f1f7c39A07".toLowerCase();
+    private static final  String ADDRESS_FOR_EXPERIENCED = "0xD00Ede3745d80F885d0B5bf71C80BD70034949a1";
+    private static final String ADDRESS_FOR_PROFESSIONAL = "0x90B4F43b617bE3A5D947389921EE25f1f7c39A07";
     private static String destination;
     private static final int LIMIT_USERS = 10;
 
