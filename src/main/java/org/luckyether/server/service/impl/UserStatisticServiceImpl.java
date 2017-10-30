@@ -33,8 +33,7 @@ public class UserStatisticServiceImpl implements UserStatisticService {
         userStatistic.setWins((long) outTransactionStatisticList.size());
         double ether = 0.0;
         for (OutTransaction elem : outTransactionStatisticList) {
-            final double eth = Double.parseDouble(elem.getEther());
-            ether += eth;
+            ether += elem.getEther();
         }
         userStatistic.setTotalWinsEther(String.valueOf(ether));
         return userStatistic;

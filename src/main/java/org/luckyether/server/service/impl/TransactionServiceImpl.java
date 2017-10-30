@@ -76,7 +76,7 @@ public class TransactionServiceImpl implements TransactionService {
 
         final OutTransaction outTransaction = new OutTransaction();
         outTransaction.setData(LocalDateTime.now().toString());
-        outTransaction.setEther(ether.toString());
+        outTransaction.setEther(Double.valueOf(ether.toString()));
         outTransaction.setWinnerAddress(address);
         outTransactionService.save(outTransaction);
     }

@@ -157,6 +157,10 @@ create table transaction_helper
 )
 ;
 
+INSERT INTO luckydb.transaction_helper (private_key)
+VALUES ('54018172962967141035397371032710015082328412733414730493055571811809990503056');
+
+
 --
 -- Table structure for table `transaction_history`
 --
@@ -216,15 +220,22 @@ create table professional
 -- Table structure for table `out_transaction`
 --
 
-CREATE TABLE out_transaction (
-  id BIGINT AUTO_INCREMENT
-  PRIMARY KEY,
-  vesion BIGINT NULL,
-  ether VARCHAR(255) NULL,
-  data VARCHAR(255) NULL,
-  winner_address VARCHAR(255) NULL
+create table out_transaction
+(
+  id bigint auto_increment
+    primary key,
+  version bigint null,
+  data varchar(255) null,
+  ether double null,
+  winner_address varchar(255) null
 )
 ;
+
+INSERT INTO out_transaction (ether, winner_address) VALUES (0.000001, '0x3666d98d8f3e69430ad31d26ed9ba448721b437d');
+INSERT INTO out_transaction (ether, winner_address) VALUES (0.000001, '0x3666d98d8f3e69430ad31d26ed9ba448721b437d');
+INSERT INTO out_transaction (ether, winner_address) VALUES (0.000001, '0x3666d98d8f3e69430ad31d26ed9ba448721b437d');
+INSERT INTO out_transaction (ether, winner_address) VALUES (0.000001, '0x3666d98d8f3e69430ad31d26ed9ba448721b437d');
+INSERT INTO out_transaction (ether, winner_address) VALUES (0.000001, '0x3666d98d8f3e69430ad31d26ed9ba448721b437d');
 
 --
 -- Table structure for table `jackpot`
