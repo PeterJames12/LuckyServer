@@ -24,13 +24,13 @@ public class Wallet extends AbstractEntity implements Serializable {
     @Column(name = "id", unique = true, nullable = false)
     private Long id;
 
-    @Column(name = "wallet_junior")
-    private String walletJunior;
+    @Column(name = "wallet_newbie")
+    private String walletNewbie;
 
-    @Column(name = "wallet_middle")
-    private String walletMiddle;
+    @Column(name = "wallet_experienced")
+    private String walletExperienced;
 
-    @Column(name = "wallet_senior")
-    private String walletSenior;
+    @Column(name = "wallet_professional")
+    private String walletProfessional;
 
 }

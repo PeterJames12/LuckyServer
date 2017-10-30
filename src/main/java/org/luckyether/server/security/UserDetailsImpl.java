@@ -23,12 +23,14 @@ public class UserDetailsImpl implements UserDetails {
     private String password;
     private String username;
     private boolean enabled;
+    private Long id;
 
     public UserDetailsImpl(User user) {
         this.password = user.getPassword();
         this.username = user.getEmail();
         this.authorities = translate(user.getRoles());
         this.enabled = user.isEnabled();
+        this.id = user.getId();
     }
 
     /**
