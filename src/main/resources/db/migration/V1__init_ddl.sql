@@ -143,6 +143,11 @@ CREATE TABLE wallet
 );
 CREATE UNIQUE INDEX wallet_id_uindex ON wallet (id);
 
+INSERT INTO luckydb.wallet (wallet_newbie, wallet_experienced, wallet_professional)
+VALUES ('0xbADA6A89904D26E6a1C950d63e4ba27FE81B4829',
+        '0xD00Ede3745d80F885d0B5bf71C80BD70034949a1',
+        '0x90B4F43b617bE3A5D947389921EE25f1f7c39A07');
+
 --
 -- Table structure for table `transaction_helper`
 --
@@ -151,12 +156,19 @@ create table transaction_helper
 (
   id bigint auto_increment
     primary key,
-  private_key varchar(255) null,
+  newbie_key varchar(255) null,
+  experinced_key varchar(255) null,
+  professinal_key varchar(255) null,
   version bigint null,
   constraint transaction_helper_id_uindex
   unique (id)
 )
 ;
+
+INSERT INTO luckydb.transaction_helper (newbie_key, experinced_key, professinal_key)
+VALUES ('63839942e02825df51fb659ac6979b361b69830f18ecab5aa520710f90446ec7',
+        '85ccdf616c723c2bb49a14ed67f53c3a3b5c4050b9c61d6b912ed4b15df5fd02',
+        '28ba690c138e92f58a7724325796d18798225ccdae37f6aee61185c3de043705');
 
 --
 -- Table structure for table `transaction_history`

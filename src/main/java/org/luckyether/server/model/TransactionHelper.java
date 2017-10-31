@@ -24,6 +24,12 @@ public class TransactionHelper extends AbstractEntity implements Serializable {
     @Column(name = "id", unique = true, nullable = false)
     private Long id;
 
-    @Column(name = "private_key")
-    private String privateKey;
+    @Column(name = "newbie_key")
+    private String newbieKey;
+
+    @Column(name = "experienced_key")
+    private String experiencedKey;
+
+    @Column(name = "professional_key")
+    private String professionalKey;
 }

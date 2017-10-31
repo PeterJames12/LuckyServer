@@ -60,10 +60,9 @@ public class TransactionServiceImpl implements TransactionService {
      */
     @Override
     public synchronized void sendTransaction(String address, Ether ether) throws InterruptedException, ExecutionException, TransactionTimeoutException, IOException, CipherException {
-        final TransactionHelper helper = helperService.getHelper();
         Web3j webThreeJ = Web3j.build(new HttpService());
-        BigInteger privateKey = new BigInteger(helper.getPrivateKey());
-        ECKeyPair ecKeyPair = ECKeyPair.create(privateKey.toByteArray());
+        final BigInteger key = getTransactionKey(ether);
+        ECKeyPair ecKeyPair = ECKeyPair.create(key.toByteArray());
         Credentials credentials = Credentials.create(ecKeyPair);
         BigDecimal value = Convert.toWei(ether.toString(), Convert.Unit.ETHER);
         Transfer.sendFundsAsync(webThreeJ, credentials, address, value, Convert.Unit.WEI).get();
@@ -208,5 +207,22 @@ public class TransactionServiceImpl implements TransactionService {
         List<String> addressList = new LinkedList<>();
         professionals.forEach(s -> addressList.add(s.getAddress()));
         luckyGamesService.professionalTransaction(addressList);
+    }
+
+    /**
+     * @return key for transaction rely on ether.
+     */
+    private BigInteger getTransactionKey(Ether ether) {
+        final TransactionHelper helper = helperService.getHelper();
+        switch (ether) {
+            case BETS_NEWBIE:
+                return new BigInteger(helper.getNewbieKey());
+            case BETS_EXPERIENCED:
+                return new BigInteger(helper.getExperiencedKey());
+            case BETS_PROFESSIONAL:
+                return new BigInteger(helper.getProfessionalKey());
+            default:
+                return new BigInteger("");
+        }
     }
 }
