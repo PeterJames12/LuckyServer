@@ -13,14 +13,14 @@ import org.springframework.web.bind.annotation.RestController;
  * @author Igor Hnes on 8/13/17.
  */
 @RestController
-@RequestMapping("wallet")
+@RequestMapping
 @RequiredArgsConstructor
 public class WalletController {
 
     @Autowired
     private WalletService walletService;
 
-    @RequestMapping(value = "/get", method = RequestMethod.POST)
+    @RequestMapping(value = "/getWallets", method = RequestMethod.POST)
     public Wallet getAllWallets() throws BaseException {
         return walletService.getAll();
     }
