@@ -6,8 +6,6 @@ import org.luckyether.server.service.*;
 import org.luckyether.server.util.Ether;
 import org.luckyether.server.util.JackpotCount;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.context.annotation.PropertySource;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.web3j.crypto.CipherException;
@@ -22,6 +20,7 @@ import org.web3j.utils.Convert;
 import java.io.IOException;
 import java.math.BigDecimal;
 import java.math.BigInteger;
+import java.time.LocalDateTime;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
@@ -31,18 +30,12 @@ import java.util.concurrent.ExecutionException;
  */
 @Service
 @Transactional
-@PropertySource("classpath:address.properties")
 public class TransactionServiceImpl implements TransactionService {
 
-    @Value("{address.newbie}")
-    private String addressNewbie;
-    @Value("{address.experienced}")
-    private String addressExperienced;
-    @Value("{address.professional}")
-    private String addressProfessional;
-    @Value("{jackpot.address}")
-    private String jackpotAddress;
-
+    private static final String ADDRESS_NEWBIE = "0xbADA6A89904D26E6a1C950d63e4ba27FE81B4829";
+    private static final String ADDRESS_EXPERIENCED = "0xD00Ede3745d80F885d0B5bf71C80BD70034949a1";
+    private static final String ADDRESS_PROFESSIONAL = "0x90B4F43b617bE3A5D947389921EE25f1f7c39A07";
+    private static final String JACKPOT_ADDRESS = "0xA3eb3cE86BAcA5C621dAaBB648320236D5F3C684";
     private static String destination;
     private static final int LIMIT_USERS = 10;
 
@@ -69,8 +62,11 @@ public class TransactionServiceImpl implements TransactionService {
     @Override
     public synchronized void sendTransaction(String address, Ether ether) throws InterruptedException, ExecutionException, TransactionTimeoutException, IOException, CipherException {
         Web3j webThreeJ = Web3j.build(new HttpService());
+
         final BigInteger key = getTransactionKey(ether);
+
         ECKeyPair ecKeyPair = ECKeyPair.create(key.toByteArray());
+
         Credentials credentials = Credentials.create(ecKeyPair);
         BigDecimal value = Convert.toWei(ether.toString(), Convert.Unit.ETHER);
         Transfer.sendFundsAsync(webThreeJ, credentials, address, value, Convert.Unit.WEI).get();
@@ -80,7 +76,7 @@ public class TransactionServiceImpl implements TransactionService {
         outTransaction.setWinnerAddress(address);
         outTransactionService.save(outTransaction);
 
-        Transfer.sendFundsAsync(webThreeJ, credentials, jackpotAddress, value, Convert.Unit.WEI).get();
+        Transfer.sendFundsAsync(webThreeJ, credentials, JACKPOT_ADDRESS, value, Convert.Unit.WEI).get();
     }
 
     /**
@@ -94,19 +90,19 @@ public class TransactionServiceImpl implements TransactionService {
                     if (null != t.getTo()) {
                         destination = t.getTo();
                     }
-                    if (destination.equalsIgnoreCase(addressNewbie)
+                    if (destination.equalsIgnoreCase(ADDRESS_NEWBIE)
                             && Ether.BETS_NEWBIE.toString()
                             .equals(Convert.fromWei(new BigDecimal(t.getValue()), Convert.Unit.ETHER).toString())) {
                         saveNewbieTransactions(t.getFrom());
                         saveAddress(t.getFrom(),
                                 Convert.fromWei(new BigDecimal(t.getValue()), Convert.Unit.ETHER).toString(), t.getHash());
-                    } else if (destination.equalsIgnoreCase(addressExperienced)
+                    } else if (destination.equalsIgnoreCase(ADDRESS_EXPERIENCED)
                             && Ether.BETS_EXPERIENCED.toString()
                             .equals(Convert.fromWei(new BigDecimal(t.getValue()), Convert.Unit.ETHER).toString())) {
                         saveExperiencedTransactions(t.getFrom());
                         saveAddress(t.getFrom(),
                                 Convert.fromWei(new BigDecimal(t.getValue()), Convert.Unit.ETHER).toString(), t.getHash());
-                    } else if (destination.equalsIgnoreCase(addressProfessional)
+                    } else if (destination.equalsIgnoreCase(ADDRESS_PROFESSIONAL)
                             && Ether.BETS_PROFESSIONAL.toString()
                             .equals(Convert.fromWei(new BigDecimal(t.getValue()), Convert.Unit.ETHER).toString())) {
                         saveProfessionalTransactions(t.getFrom());
@@ -124,6 +120,7 @@ public class TransactionServiceImpl implements TransactionService {
         final TransactionHistory history = new TransactionHistory();
         history.setSenderAddress(address);
         history.setEther(ether);
+        history.setDate(LocalDateTime.now().toString());
         history.setTransactionHash(hash);
         historyService.save(history);
     }

@@ -20,7 +20,7 @@ public class WalletController {
     @Autowired
     private WalletService walletService;
 
-    @RequestMapping(value = "/getWallets", method = RequestMethod.POST)
+    @RequestMapping(value = "/getWallets", method = RequestMethod.GET)
     public Wallet getAllWallets() throws BaseException {
         return walletService.getAll();
     }

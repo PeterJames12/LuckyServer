@@ -179,7 +179,7 @@ create table transaction_history
   id bigint auto_increment
     primary key,
   version bigint null,
-  data TIMESTAMP DEFAULT current_timestamp(),
+  data VARCHAR(255) NULL,
   ether varchar(255) null,
   transaction_hash VARCHAR(255) NULL,
   sender_address varchar(255) null
@@ -252,4 +252,14 @@ CREATE TABLE jackpot (
   count BIGINT NULL
 )
 ;
+
+CREATE TABLE founders (
+  id BIGINT AUTO_INCREMENT
+  PRIMARY KEY,
+  version BIGINT NULL,
+  username VARCHAR(255) NULL,
+  address VARCHAR(255) NULL,
+  added_date TIMESTAMP DEFAULT current_timestamp()
+);
+
 

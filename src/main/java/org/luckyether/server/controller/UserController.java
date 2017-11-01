@@ -3,15 +3,11 @@ package org.luckyether.server.controller;
 import lombok.RequiredArgsConstructor;
 import org.luckyether.server.dto.UserDTO;
 import org.luckyether.server.exception.BaseException;
-import org.luckyether.server.model.TransactionHistory;
 import org.luckyether.server.model.UserStatistic;
-import org.luckyether.server.service.HistoryService;
 import org.luckyether.server.service.UserService;
 import org.luckyether.server.service.UserStatisticService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 /**
  * @author Andre on July 2017.
@@ -26,9 +22,6 @@ public class UserController {
 
     @Autowired
     private UserStatisticService userStatisticService;
-
-    @Autowired
-    private HistoryService historyService;
 
     /**
      * Sign up for user.
@@ -68,13 +61,5 @@ public class UserController {
     @RequestMapping(value = "/statistic", method = RequestMethod.GET)
     public UserStatistic getStatistic(@RequestParam String address) {
         return userStatisticService.getStatistic(address);
-    }
-
-    /**
-     * @return list of statistic for user by given address.
-     */
-    @RequestMapping(value = "/history", method = RequestMethod.GET)
-    public List<TransactionHistory> getHistory(@RequestParam String address) {
-        return historyService.getHistoryByAddress(address);
     }
 }
