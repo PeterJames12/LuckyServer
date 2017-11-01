@@ -179,7 +179,7 @@ create table transaction_history
   id bigint auto_increment
     primary key,
   version bigint null,
-  data VARCHAR(255) null,
+  data TIMESTAMP DEFAULT current_timestamp(),
   ether varchar(255) null,
   transaction_hash VARCHAR(255) NULL,
   sender_address varchar(255) null
@@ -234,7 +234,7 @@ create table out_transaction
   id bigint auto_increment
     primary key,
   version bigint null,
-  data varchar(255) null,
+  data TIMESTAMP DEFAULT current_timestamp(),
   ether VARCHAR(255) null,
   winner_address varchar(255) null
 )

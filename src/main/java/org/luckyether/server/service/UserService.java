@@ -2,7 +2,6 @@ package org.luckyether.server.service;
 
 import org.luckyether.server.dto.UserDTO;
 import org.luckyether.server.exception.RequestException;
-import org.luckyether.server.model.User;
 
 /**
  * @author Andre on July 2017.
@@ -30,5 +29,5 @@ public interface UserService {
     /**
      * Update user.
      */
-    void update(User user);
+    void update(UserDTO user);
 }

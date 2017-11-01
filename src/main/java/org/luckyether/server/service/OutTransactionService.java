@@ -18,4 +18,9 @@ public interface OutTransactionService {
      * @return list of statistic by given address.
      */
     List<OutTransaction> getAllByWinnerAddress(String address);
+
+    /**
+     * @return list of today's winners.
+     */
+    List<OutTransaction> getAllForToday();
 }

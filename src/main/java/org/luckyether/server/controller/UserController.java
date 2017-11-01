@@ -4,7 +4,6 @@ import lombok.RequiredArgsConstructor;
 import org.luckyether.server.dto.UserDTO;
 import org.luckyether.server.exception.BaseException;
 import org.luckyether.server.model.TransactionHistory;
-import org.luckyether.server.model.User;
 import org.luckyether.server.model.UserStatistic;
 import org.luckyether.server.service.HistoryService;
 import org.luckyether.server.service.UserService;
@@ -43,7 +42,7 @@ public class UserController {
      * Update user.
      */
     @PutMapping(value = "/update")
-    public void update(@RequestBody User user) throws BaseException {
+    public void update(@RequestBody UserDTO user) throws BaseException {
         userService.update(user);
     }
 

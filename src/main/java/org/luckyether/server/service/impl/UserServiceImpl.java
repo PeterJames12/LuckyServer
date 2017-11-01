@@ -1,5 +1,6 @@
 package org.luckyether.server.service.impl;
 
+import lombok.extern.slf4j.Slf4j;
 import lombok.val;
 import org.luckyether.server.dto.UserDTO;
 import org.luckyether.server.exception.RequestException;
@@ -9,6 +10,7 @@ import org.luckyether.server.model.User;
 import org.luckyether.server.repository.UserRepository;
 import org.luckyether.server.security.PasswordEncoder;
 import org.luckyether.server.service.EmailBuilder;
+import org.luckyether.server.service.EmailService;
 import org.luckyether.server.service.UserService;
 import org.luckyether.server.service.impl.email.RecoverBuilderImpl;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,6 +26,7 @@ import java.util.Collections;
 /**
  * @author Igor Hnes on 8/12/17.
  */
+@Slf4j
 @Service
 @PropertySource("classpath:email/email.properties")
 @Transactional
@@ -36,6 +39,9 @@ public class UserServiceImpl implements UserService {
     private UserRepository userRepository;
 
     private EmailBuilder<User> emailStrategy = new RecoverBuilderImpl();
+
+    @Autowired
+    private EmailService emailService;
 
     @Value("${password.length}")
     private Integer newPasswordLength;
@@ -86,7 +92,11 @@ public class UserServiceImpl implements UserService {
      * @return {@link UserDTO} from {@link User}.
      */
     private UserDTO toFrom(User user) {
-        return new UserDTO(user.getEmail(), user.isEnabled(), user.getId(), user.getPassword());
+        return new UserDTO(user.getEmail(),
+                user.isEnabled(),
+                user.getId(),
+                user.getPassword(),
+                user.getWallet());
     }
 
     /**
@@ -102,16 +112,16 @@ public class UserServiceImpl implements UserService {
         String encodedPassword = encoder.encode(password);
         user.setPassword(encodedPassword);
         val message = this.emailStrategy.buildMessage(user);
-//        emailService.sendMessage(message);
+        emailService.sendMessage(message);
         userRepository.saveAndFlush(user);
+        log.debug("password changed for " + user.getEmail());
     }
 
     /**
      * {@inheritDoc}.
      */
     @Override
-    public void update(User user) {
-        System.out.println("User id: " + user.getId() + " " + user.toString());
-        userRepository.saveAndFlush(user);
+    public void update(UserDTO user) {
+        userRepository.update(user.getWallet(), user.getId());
     }
 }

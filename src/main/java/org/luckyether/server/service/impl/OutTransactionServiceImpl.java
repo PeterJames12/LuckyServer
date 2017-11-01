@@ -6,6 +6,7 @@ import org.luckyether.server.service.OutTransactionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 /**
@@ -31,5 +32,13 @@ public class OutTransactionServiceImpl implements OutTransactionService {
     @Override
     public List<OutTransaction> getAllByWinnerAddress(String address) {
         return outTransactionRepository.getAllByWinnerAddress(address);
+    }
+
+    /**
+     * {@inheritDoc}.
+     */
+    @Override
+    public List<OutTransaction> getAllForToday() {
+        return outTransactionRepository.getByToday(LocalDateTime.now(), LocalDateTime.now().minusDays(1));
     }
 }

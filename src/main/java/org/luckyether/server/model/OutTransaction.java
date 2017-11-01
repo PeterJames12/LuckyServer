@@ -4,6 +4,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.io.Serializable;
+import java.time.LocalDateTime;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
@@ -19,8 +20,8 @@ public class OutTransaction extends AbstractEntity implements Serializable {
 
     @Column(name = "ether")
     private String ether;
-    @Column(name = "data")
-    private String data;
+    @Column(name = "date")
+    private LocalDateTime data;
     @Column(name = "winner_address")
     private String winnerAddress;
 }

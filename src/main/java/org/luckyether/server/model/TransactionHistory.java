@@ -4,6 +4,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.io.Serializable;
+import java.time.LocalDateTime;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
@@ -22,7 +23,7 @@ public class TransactionHistory extends AbstractEntity implements Serializable {
     @Column(name = "sender_address")
     private String senderAddress;
     @Column(name = "data")
-    private String date;
+    private LocalDateTime date;
     @Column(name = "transaction_hash")
     private String transactionHash;
 }
