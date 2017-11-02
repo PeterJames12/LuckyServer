@@ -217,6 +217,7 @@ public class TransactionServiceImpl implements TransactionService {
      */
     private BigInteger getTransactionKey(Ether ether) {
         final TransactionHelper helper = helperService.getHelper();
+
         switch (ether) {
             case BETS_NEWBIE:
                 return new BigInteger(helper.getNewbieKey());

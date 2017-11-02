@@ -3,10 +3,11 @@ package org.luckyether.server.model;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.hibernate.annotations.GenericGenerator;
 
 import java.io.Serializable;
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Table;
 
 /**
  * @author Igor Hnes on 8/13/17.
@@ -18,12 +19,6 @@ import javax.persistence.*;
 @Table(name = "wallet")
 public class Wallet extends AbstractEntity implements Serializable {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @GenericGenerator(name = "increment", strategy = "increment")
-    @Column(name = "id", unique = true, nullable = false)
-    private Long id;
-
     @Column(name = "wallet_newbie")
     private String walletNewbie;
 
@@ -33,4 +28,6 @@ public class Wallet extends AbstractEntity implements Serializable {
     @Column(name = "wallet_professional")
     private String walletProfessional;
 
+    @Column(name = "payment_token")
+    private String paymentToken;
 }

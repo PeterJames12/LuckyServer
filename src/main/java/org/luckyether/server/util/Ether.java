@@ -8,40 +8,40 @@ public enum Ether {
     NEWBIE {
         @Override
         public String toString() {
-            return "0.000001";
+            return "0.00001";
         }
     },
     EXPERIENCED {
         @Override
         public String toString() {
-            return "0.000005";
+            return "0.00002";
         }
     },
     PROFESSIONAL {
         @Override
         public String toString() {
-            return "0.000005";
+            return "0.00005";
         }
     },
 
     BETS_NEWBIE{
         @Override
         public String toString() {
-            return "0.000001";
+            return "0.00001";
         }
     },
 
     BETS_EXPERIENCED {
         @Override
         public String toString() {
-            return "0.000002";
+            return "0.00002";
         }
     },
 
     BETS_PROFESSIONAL {
         @Override
         public String toString() {
-            return "0.000003";
+            return "0.00005";
         }
     },
 }
