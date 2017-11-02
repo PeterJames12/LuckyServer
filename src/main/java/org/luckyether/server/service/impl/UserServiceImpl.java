@@ -56,6 +56,7 @@ public class UserServiceImpl implements UserService {
             throw new RequestException(ErrorCode.USER_EXISTS, "EtherUser already exists");
         }
         final User save = userRepository.save(user);
+        log.debug("saved user " + user.getEmail());
         return toFrom(save);
     }
 
@@ -103,7 +104,7 @@ public class UserServiceImpl implements UserService {
      * {@inheritDoc}.
      */
     @Override
-    public void changePassword(String email) {
+    public void recoverPassword(String email) {
         Assert.notNull(email, "email must not be null");
         val userDTO = this.getUserByUserEmail(email);
         User user = fromDTO(userDTO);
@@ -114,7 +115,7 @@ public class UserServiceImpl implements UserService {
         val message = this.emailStrategy.buildMessage(user);
         emailService.sendMessage(message);
         userRepository.saveAndFlush(user);
-        log.debug("password changed for " + user.getEmail());
+        log.debug("password recover for " + user.getEmail());
     }
 
     /**
@@ -123,5 +124,18 @@ public class UserServiceImpl implements UserService {
     @Override
     public void update(UserDTO user) {
         userRepository.update(user.getWallet(), user.getId());
+        log.debug("updated user wallet for " + user.getEmail());
+    }
+
+    /**
+     * {@inheritDoc}.
+     */
+    @Override
+    public boolean changePassword(Long id, String password) {
+        BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+        final String encodePassword = encoder.encode(password);
+        userRepository.changePassword(id, encodePassword);
+        log.debug("password changed for userId = " + id);
+        return true;
     }
 }

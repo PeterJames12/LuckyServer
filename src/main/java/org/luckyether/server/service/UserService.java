@@ -24,10 +24,15 @@ public interface UserService {
      *
      * @param email email for recovering password, must not be {@literal null}.
      */
-    void changePassword(String email);
+    void recoverPassword(String email);
 
     /**
      * Update user.
      */
     void update(UserDTO user);
+
+    /**
+     * Set new password for user with given id.
+     */
+    boolean changePassword(Long id, String password);
 }

@@ -159,15 +159,15 @@ create table transaction_helper
   id bigint auto_increment
     primary key,
   newbie_key varchar(255) null,
-  experinced_key varchar(255) null,
-  professinal_key varchar(255) null,
+  experienced_key varchar(255) null,
+  professional_key varchar(255) null,
   version bigint null,
   constraint transaction_helper_id_uindex
   unique (id)
 )
 ;
 
-INSERT INTO luckydb.transaction_helper (newbie_key, experinced_key, professinal_key)
+INSERT INTO luckydb.transaction_helper (newbie_key, experienced_key, professional_key)
 VALUES ('45011486745383349022177747511271840274488129481166194675961184862743256395463',
         '60519587378760102136937969982456925448408430677102026929324810446819317644546',
         '18421872506324793142967855904780638493365101708850749274883395753524590819077');
@@ -236,8 +236,8 @@ create table out_transaction
   id bigint auto_increment
     primary key,
   version bigint null,
-  data TIMESTAMP DEFAULT current_timestamp(),
-  ether VARCHAR(255) null,
+  date VARCHAR(255) NULL,
+  ether varchar(255) null,
   winner_address varchar(255) null
 )
 ;
@@ -269,3 +269,17 @@ CREATE TABLE founders (
 );
 
 
+--
+-- Table structure for table `jackpot_sum`
+--
+
+
+create table jackpot_sum
+(
+  id BIGINT auto_increment
+    primary key,
+  ether varchar(255) null,
+  constraint jackpot_sum_id_uindex
+  unique (id)
+)
+;

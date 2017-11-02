@@ -1,5 +1,6 @@
 package org.luckyether.server.service.impl;
 
+import lombok.extern.slf4j.Slf4j;
 import lombok.val;
 import org.luckyether.server.model.OutTransaction;
 import org.luckyether.server.model.UserStatistic;
@@ -14,6 +15,7 @@ import java.math.BigDecimal;
 /**
  * @author Igor Hnes on 10/30/17.
  */
+@Slf4j
 @Service
 public class UserStatisticServiceImpl implements UserStatisticService {
 
@@ -39,6 +41,7 @@ public class UserStatisticServiceImpl implements UserStatisticService {
             ether += eth;
         }
         userStatistic.setTotalWinsEther(BigDecimal.valueOf(ether).toString());
+
         return userStatistic;
     }
 }

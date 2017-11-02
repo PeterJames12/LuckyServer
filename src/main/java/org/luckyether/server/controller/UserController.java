@@ -52,7 +52,7 @@ public class UserController {
      */
     @RequestMapping(value = "/recovery", method = RequestMethod.GET)
     public void passwordRecovery(@RequestParam String email) {
-        userService.changePassword(email);
+        userService.recoverPassword(email);
     }
 
     /**
@@ -61,5 +61,13 @@ public class UserController {
     @RequestMapping(value = "/statistic", method = RequestMethod.GET)
     public UserStatistic getStatistic(@RequestParam String address) {
         return userStatisticService.getStatistic(address);
+    }
+
+    /**
+     * Change password for user id.
+     */
+    @RequestMapping(value = "/changePassword", method = RequestMethod.GET)
+    public boolean changePassword(@RequestParam Long id, @RequestParam String password) {
+        return userService.changePassword(id, password);
     }
 }

@@ -1,5 +1,6 @@
 package org.luckyether.server.model;
 
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -9,18 +10,15 @@ import javax.persistence.Entity;
 import javax.persistence.Table;
 
 /**
- * @author Igor Hnes on 10/29/17.
+ * @author Igor Hnes on 11/2/17.
  */
 @Getter
 @Setter
+@EqualsAndHashCode(callSuper = false)
 @Entity
-@Table(name = "out_transaction")
-public class OutTransaction extends AbstractEntity implements Serializable {
+@Table(name = "jackpot_sum")
+public class JackpotSum extends AbstractEntity implements Serializable {
 
     @Column(name = "ether")
     private String ether;
-    @Column(name = "date")
-    private String date;
-    @Column(name = "winner_address")
-    private String winnerAddress;
 }

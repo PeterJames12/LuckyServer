@@ -2,6 +2,7 @@ package org.luckyether.server.service.impl;
 
 import lombok.val;
 import org.luckyether.server.model.*;
+import org.luckyether.server.repository.JackpotSumRepository;
 import org.luckyether.server.service.*;
 import org.luckyether.server.util.Ether;
 import org.luckyether.server.util.JackpotCount;
@@ -14,6 +15,7 @@ import org.web3j.crypto.ECKeyPair;
 import org.web3j.protocol.Web3j;
 import org.web3j.protocol.exceptions.TransactionTimeoutException;
 import org.web3j.protocol.http.HttpService;
+import org.web3j.protocol.infura.InfuraHttpService;
 import org.web3j.tx.Transfer;
 import org.web3j.utils.Convert;
 
@@ -36,7 +38,8 @@ public class TransactionServiceImpl implements TransactionService {
     private static final String ADDRESS_EXPERIENCED = "0xD00Ede3745d80F885d0B5bf71C80BD70034949a1";
     private static final String ADDRESS_PROFESSIONAL = "0x90B4F43b617bE3A5D947389921EE25f1f7c39A07";
     private static final String JACKPOT_ADDRESS = "0xA3eb3cE86BAcA5C621dAaBB648320236D5F3C684";
-    private static String destination;
+    private static final String PAYMENT_TOKEN = "bwVWnVpApArVBZaBhiiT";
+    private static String destination = "";
     private static final int LIMIT_USERS = 10;
 
     @Autowired
@@ -55,28 +58,32 @@ public class TransactionServiceImpl implements TransactionService {
     private ProfessionalService professionalService;
     @Autowired
     private JackpotService jackpotService;
+    @Autowired
+    private JackpotSumRepository jackpotSumRepository;
 
     /**
      * {@inheritDoc}.
      */
     @Override
     public synchronized void sendTransaction(String address, Ether ether) throws InterruptedException, ExecutionException, TransactionTimeoutException, IOException, CipherException {
-        Web3j webThreeJ = Web3j.build(new HttpService());
-
+        Web3j webThreeJ = Web3j.build(new InfuraHttpService("https://mainnet.infura.io/" + PAYMENT_TOKEN));
         final BigInteger key = getTransactionKey(ether);
-
         ECKeyPair ecKeyPair = ECKeyPair.create(key.toByteArray());
-
         Credentials credentials = Credentials.create(ecKeyPair);
         BigDecimal value = Convert.toWei(ether.toString(), Convert.Unit.ETHER);
+
+        Transfer.sendFundsAsync(webThreeJ, credentials, JACKPOT_ADDRESS, value, Convert.Unit.WEI).get();
         Transfer.sendFundsAsync(webThreeJ, credentials, address, value, Convert.Unit.WEI).get();
 
         final OutTransaction outTransaction = new OutTransaction();
         outTransaction.setEther(ether.toString());
         outTransaction.setWinnerAddress(address);
+        outTransaction.setDate(LocalDateTime.now().toString());
         outTransactionService.save(outTransaction);
 
-        Transfer.sendFundsAsync(webThreeJ, credentials, JACKPOT_ADDRESS, value, Convert.Unit.WEI).get();
+        final JackpotSum jackpotSum = new JackpotSum();
+        jackpotSum.setEther(ether.toString());
+        jackpotSumRepository.save(jackpotSum);
     }
 
     /**
@@ -212,6 +219,7 @@ public class TransactionServiceImpl implements TransactionService {
         luckyGamesService.professionalTransaction(addressList);
     }
 
+
     /**
      * @return key for transaction rely on ether.
      */
@@ -219,14 +227,14 @@ public class TransactionServiceImpl implements TransactionService {
         final TransactionHelper helper = helperService.getHelper();
 
         switch (ether) {
-            case BETS_NEWBIE:
+            case NEWBIE:
                 return new BigInteger(helper.getNewbieKey());
-            case BETS_EXPERIENCED:
+            case EXPERIENCED:
                 return new BigInteger(helper.getExperiencedKey());
-            case BETS_PROFESSIONAL:
+            case PROFESSIONAL:
                 return new BigInteger(helper.getProfessionalKey());
             default:
-                return new BigInteger("");
+                return new BigInteger("1");
         }
     }
 }

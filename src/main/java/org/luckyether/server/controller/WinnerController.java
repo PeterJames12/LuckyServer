@@ -26,6 +26,6 @@ public class WinnerController {
      */
     @RequestMapping(value = "/getWinners", method = RequestMethod.GET)
     public List<OutTransaction> getWinners() {
-        return outTransactionService.getAllForToday();
+        return outTransactionService.getAll();
     }
 }

@@ -22,5 +22,5 @@ public interface OutTransactionService {
     /**
      * @return list of today's winners.
      */
-    List<OutTransaction> getAllForToday();
+    List<OutTransaction> getAll();
 }

@@ -3,6 +3,7 @@ package org.luckyether.server;
 import org.luckyether.server.repository.UserRepository;
 import org.luckyether.server.security.PasswordEncoder;
 import org.luckyether.server.security.UserDetailsImpl;
+import org.luckyether.server.service.OutTransactionService;
 import org.luckyether.server.service.TransactionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
@@ -50,6 +51,9 @@ public class LuckyApplication extends SpringBootServletInitializer {
 
     @Autowired
     private TransactionService transactionService;
+
+    @Autowired
+    private OutTransactionService outTransactionService;
 
     // this is needed for war packaging of the applicaiton
     @Override
