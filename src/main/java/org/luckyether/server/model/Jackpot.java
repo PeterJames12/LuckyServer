@@ -21,5 +21,4 @@ public class Jackpot extends AbstractEntity implements Serializable {
     private String address;
     @Column(name = "count")
     private Long count;
-
 }

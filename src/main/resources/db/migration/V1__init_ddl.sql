@@ -273,13 +273,58 @@ CREATE TABLE founders (
 -- Table structure for table `jackpot_sum`
 --
 
-
 create table jackpot_sum
 (
   id BIGINT auto_increment
     primary key,
   ether varchar(255) null,
+  version BIGINT NULL,
   constraint jackpot_sum_id_uindex
   unique (id)
+)
+;
+
+--
+-- Table structure for table `admin`
+--
+
+create table admin
+(
+  id bigint auto_increment
+    primary key,
+  firstname varchar(255) null,
+  lastname varchar(255) null,
+  password varchar(255) null,
+  username varchar(255) null,
+  version BIGINT NULL
+)
+;
+#
+# create table admin_authority
+# (
+#   admin_id bigint not null,
+#   authority_id bigint not null,
+#   version BIGINT NULL,
+#   constraint FKcvohriyanypidhl2apguwpgt4
+#   foreign key (admin_id) references admin (id),
+#   constraint FKdw9cd8mq4xbhayojm1tch5o0q
+#   foreign key (authority_id) references authority (id)
+# )
+# ;
+#
+# create index FKcvohriyanypidhl2apguwpgt4
+#   on admin_authority (admin_id)
+# ;
+#
+# create index FKdw9cd8mq4xbhayojm1tch5o0q
+#   on admin_authority (authority_id)
+# ;
+
+create table authority
+(
+  id bigint auto_increment
+    primary key,
+  version BIGINT NULL,
+  name varchar(255) null
 )
 ;

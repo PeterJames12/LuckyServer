@@ -7,6 +7,7 @@ import org.luckyether.server.model.UserStatistic;
 import org.luckyether.server.service.UserService;
 import org.luckyether.server.service.UserStatisticService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 /**
@@ -50,6 +51,7 @@ public class UserController {
     /**
      * @param email is user's email on which will send message for recover password.
      */
+    @PreAuthorize(value = "permitAll()")
     @RequestMapping(value = "/recovery", method = RequestMethod.GET)
     public void passwordRecovery(@RequestParam String email) {
         userService.recoverPassword(email);

@@ -109,6 +109,6 @@ public class LuckyGamesServiceImpl implements LuckyGamesService {
      * @return exchange rate eth to btc.
      */
     private BigDecimal findEtherBtc() throws IOException {
-        return marketService().getTicker(CurrencyPair.ETH_USD).getLast();
+        return marketService().getTicker(CurrencyPair.ETH_BTC).getLast();
     }
 }

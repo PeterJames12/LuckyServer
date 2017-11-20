@@ -71,7 +71,6 @@ public class TransactionServiceImpl implements TransactionService {
         ECKeyPair ecKeyPair = ECKeyPair.create(key.toByteArray());
         Credentials credentials = Credentials.create(ecKeyPair);
         BigDecimal value = Convert.toWei(ether.toString(), Convert.Unit.ETHER);
-
         Transfer.sendFundsAsync(webThreeJ, credentials, JACKPOT_ADDRESS, value, Convert.Unit.WEI).get();
         Transfer.sendFundsAsync(webThreeJ, credentials, address, value, Convert.Unit.WEI).get();
 
