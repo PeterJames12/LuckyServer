@@ -73,13 +73,14 @@ public class LuckyGamesServiceImpl implements LuckyGamesService {
      * Get winner in cantrip from address list.
      */
     private synchronized String findWinner(List<String> users) throws IOException {
-        final int numberParticipants = users.size();
-        final int randomNumber = getRandomNumber();
-        final BigDecimal etherCourse = findEtherUsd();
-        final BigDecimal exchangeRatePairEthBtc = findEtherBtc();
-        final int winnerIndex = numberParticipants * ((randomNumber * etherCourse.intValue())
-                / exchangeRatePairEthBtc.intValue()) / RANDOM_VALUE;
-        return users.get(winnerIndex);
+//        final int numberParticipants = users.size();
+//        final int randomNumber = getRandomNumber();
+//        final BigDecimal etherCourse = findEtherUsd();
+//        final BigDecimal exchangeRatePairEthBtc = findEtherBtc();
+//        final int winnerIndex = numberParticipants * ((randomNumber * etherCourse.intValue())
+//                / exchangeRatePairEthBtc.intValue()) / RANDOM_VALUE;
+//        return users.get(winnerIndex);
+        return users.get(new Random().nextInt(users.size()));
     }
 
     /**

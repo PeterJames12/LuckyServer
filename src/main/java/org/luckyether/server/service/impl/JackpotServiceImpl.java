@@ -29,12 +29,11 @@ public class JackpotServiceImpl implements JackpotService {
     @Override
     public String getCurrentJackpot() {
         final List<JackpotSum> jackpotSums = jackpotSumRepository.findAll();
-        double ether = 0.0;
+        BigDecimal currentJackpot = new BigDecimal("0");
         for (JackpotSum element : jackpotSums) {
-            final double eth = Double.parseDouble(element.getEther());
-            ether += eth;
+            currentJackpot = currentJackpot.add(new BigDecimal(element.getEther()));
         }
-        return BigDecimal.valueOf(ether).toString();
+        return currentJackpot.toString();
     }
 
     /**

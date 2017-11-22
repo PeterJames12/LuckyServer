@@ -4,6 +4,7 @@ import lombok.val;
 import org.luckyether.server.model.*;
 import org.luckyether.server.repository.JackpotSumRepository;
 import org.luckyether.server.service.*;
+import org.luckyether.server.util.DataParser;
 import org.luckyether.server.util.Ether;
 import org.luckyether.server.util.JackpotCount;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,7 +23,6 @@ import org.web3j.utils.Convert;
 import java.io.IOException;
 import java.math.BigDecimal;
 import java.math.BigInteger;
-import java.time.LocalDateTime;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
@@ -77,7 +77,7 @@ public class TransactionServiceImpl implements TransactionService {
         final OutTransaction outTransaction = new OutTransaction();
         outTransaction.setEther(ether.toString());
         outTransaction.setWinnerAddress(address);
-        outTransaction.setDate(LocalDateTime.now().toString());
+        outTransaction.setDate(DataParser.getCurrentDate());
         outTransactionService.save(outTransaction);
 
         final JackpotSum jackpotSum = new JackpotSum();
@@ -126,7 +126,7 @@ public class TransactionServiceImpl implements TransactionService {
         final TransactionHistory history = new TransactionHistory();
         history.setSenderAddress(address);
         history.setEther(ether);
-        history.setDate(LocalDateTime.now().toString());
+        history.setDate(DataParser.getCurrentDate());
         history.setTransactionHash(hash);
         historyService.save(history);
     }

@@ -35,12 +35,11 @@ public class UserStatisticServiceImpl implements UserStatisticService {
         final UserStatistic userStatistic = new UserStatistic();
         userStatistic.setTotalGames(count);
         userStatistic.setWins((long) outTransactionStatisticList.size());
-        double ether = 0.0;
+        BigDecimal userWins = new BigDecimal("0");
         for (OutTransaction elem : outTransactionStatisticList) {
-            final double eth = Double.parseDouble(elem.getEther());
-            ether += eth;
+            userWins = userWins.add(new BigDecimal(elem.getEther()));
         }
-        userStatistic.setTotalWinsEther(BigDecimal.valueOf(ether).toString());
+        userStatistic.setTotalWinsEther(userWins.toString());
 
         return userStatistic;
     }

@@ -26,8 +26,6 @@ public class WinnerController {
      */
     @RequestMapping(value = "/getWinners", method = RequestMethod.GET)
     public List<OutTransaction> getWinners() {
-        final List<OutTransaction> outTransactions = outTransactionService.getAll();
-        outTransactions.forEach(s -> System.out.println("Date: " + s.getDate()));
-        return outTransactions;
+        return outTransactionService.getAll();
     }
 }

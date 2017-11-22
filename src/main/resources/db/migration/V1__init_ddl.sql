@@ -249,7 +249,7 @@ create table out_transaction
 CREATE TABLE jackpot (
   id BIGINT AUTO_INCREMENT
   PRIMARY KEY,
-  vesion BIGINT NULL,
+  version BIGINT NULL,
   address VARCHAR(255) NULL,
   count BIGINT NULL
 )
@@ -288,18 +288,18 @@ create table jackpot_sum
 -- Table structure for table `admin`
 --
 
-create table admin
-(
-  id bigint auto_increment
-    primary key,
-  firstname varchar(255) null,
-  lastname varchar(255) null,
-  password varchar(255) null,
-  username varchar(255) null,
-  version BIGINT NULL
-)
-;
-#
+# create table admin
+# (
+#   id bigint auto_increment
+#     primary key,
+#   firstname varchar(255) null,
+#   lastname varchar(255) null,
+#   password varchar(255) null,
+#   username varchar(255) null,
+#   version BIGINT NULL
+# )
+# ;
+# #
 # create table admin_authority
 # (
 #   admin_id bigint not null,
@@ -320,11 +320,11 @@ create table admin
 #   on admin_authority (authority_id)
 # ;
 
-create table authority
-(
-  id bigint auto_increment
-    primary key,
-  version BIGINT NULL,
-  name varchar(255) null
-)
-;
+# create table authority
+# (
+#   id bigint auto_increment
+#     primary key,
+#   version BIGINT NULL,
+#   name varchar(255) null
+# )
+# ;
